@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 import { Button, Colors } from './components/Button';
 import { Title } from './components/Title';
 import './styles/styles.css'

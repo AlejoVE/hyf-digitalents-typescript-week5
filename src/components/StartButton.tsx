@@ -7,6 +7,6 @@ type StartButtonProps = {
 
 export const StartButton = (props: StartButtonProps ) => {
   return (
-    <button onClick={props.onClick}>Start Game</button>
+    <button className='btn btn-success' onClick={props.onClick}>Start Game</button>
   )
 }

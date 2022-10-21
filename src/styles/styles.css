@@ -1,11 +1,47 @@
-.btn {
-	height: 20rem;
-	width: 20rem;
-	margin-left: 5rem;
+body {
+	background-color: rgb(94, 14, 114);
+}
+
+.grid {
+	display: grid;
+	margin: 0 auto;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 2rem;
+}
+
+.grid:nth-child(0) {
+	grid-column: 2/3;
+	grid-row: 2 / 3;
+}
+
+.grid .box:nth-child(1) {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+}
+.grid .box:nth-child(2) {
+	grid-column: 3 / 4;
+	grid-row: 1 / 2;
+}
+.grid .box:nth-child(3) {
+	grid-column: 2 / 3;
+	grid-row: 2 / 3;
+}
+.grid .box:nth-child(4) {
+	grid-column: 3 / 4;
+	grid-row: 2 / 3;
+}
+
+.btn-mine {
+	height: 10rem;
+	width: 10rem;
+	margin: 0 auto;
 }
 
 .active {
-	filter: brightness(100%);
+	box-sizing: border-box;
+	/* filter: brightness(100%); */
+	border: 5px solid red;
 }
 
 .inactive {

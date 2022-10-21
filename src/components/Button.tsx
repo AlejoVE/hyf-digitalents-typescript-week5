@@ -5,17 +5,18 @@ export enum Colors {
     GREEN = 'green',
     RED= 'red',
     BLUE = 'blue',
-    PINK = 'pink'
+    PINK = 'hotpink'
 }
 
 type SimonButtonProps = {
     color: Colors,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
-    isActive: boolean
+    isActive: boolean,
+    disabled: boolean
 }
 
 export const Button = (props: SimonButtonProps) => {
   return (
-    <button data-color={props.color} onClick={props.onClick} className={`btn ${props.isActive ? "active" : "inactive"}`} style={{backgroundColor: props.color}}></button>
+    <button disabled={props.disabled}  data-color={props.color} onClick={props.onClick} className={`btn-mine box ${props.isActive ? " border border-white" : "inactive"}`} style={{backgroundColor: props.color}}></button>
   )
 }

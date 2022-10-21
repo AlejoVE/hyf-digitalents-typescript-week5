@@ -2,32 +2,37 @@ import React, { useState } from 'react';
 import './App.css';
 import { Button, Colors } from './components/Button';
 import { Title } from './components/Title';
-
 import './styles/styles.css'
 import { StartButton } from './components/StartButton';
-import { timeout, displayColors } from './helpers/helpers';
+import { timeout } from './helpers/helpers';
 
 function App() {
 
-  const [colors, setColors] = useState(Object.values(Colors))
+  const colors = Object.values(Colors)
   const [currentSequence, setCurrentSequence] = useState<string[]>([])
-  const [activeColor, setActiveColor] = useState<string>('')  // const currentSequence: string[] = [];
+  const [activeColor, setActiveColor] = useState<string>('')
   const [userAnswers, setUserAnswers] = useState<string[]>([])
   const [score, setScore] = useState<number>(0)
+  const [gameStarted, setGameStarted] = useState<boolean>(false)
+  const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(true)
 
   const startGame = (e: React.MouseEvent<HTMLButtonElement>)=> {
+    
+    setGameStarted(true)
     startSequence()
+    // setButtonsDisabled(false)
   }
 
-  const startSequence = () =>{
+  const startSequence = async () =>{
+    setButtonsDisabled(true)
     const randomIndex: number = Math.floor(Math.random() * colors.length);
     const color = colors[randomIndex]
-
-    const updateSequence =  [...currentSequence, color]
+    const updateSequence = [...currentSequence, color]
 
     setCurrentSequence(updateSequence)
 
-    displayColors(updateSequence, setActiveColor)
+    displayColors(updateSequence)
+
 
   }
 
@@ -35,7 +40,9 @@ function App() {
 
    for (let i = 0; i < userAnswers.length; i++) {
     if(currentSequence[i] !== userAnswers[i]){
-      alert('Wrong Answer')
+      alert(`                    Game over\n
+                     Your Score: ${score}
+      `  )
       resetGame()
       return
      }
@@ -51,27 +58,44 @@ function App() {
   }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>)=> {
+    if(currentSequence.length < 1) return
     const color = (e.target as HTMLButtonElement).getAttribute('data-color')
     const updateUserAnswers = [...userAnswers, (color as string)]
     setUserAnswers(updateUserAnswers)
     checkAnswers(updateUserAnswers)
   }
 
+ const displayColors = async (sequence: string[])=> {
+    for (let i = 0; i < sequence.length; i++) {
+      setActiveColor(sequence[i])
+      await timeout(500)
+      setActiveColor('')
+      await timeout(500)
+    }
+    setButtonsDisabled(false)
+  }
+
+
   const resetGame = ()=>{
     setActiveColor('')
     setCurrentSequence([])
     setScore(0)
     setUserAnswers([])
+    setGameStarted(false)
   }
 
   return (
-    <div className="App">
+    <div className="container text-center">
       <Title />
-      <h1>User Score: {score}</h1>
+      <h1 className='text-white mt-2 '>Score: {score}</h1>
+      <div className='grid mb-5 mt-5'>
        {
-        Object.values(Colors).map(color=> <Button key={color} isActive={activeColor === color ? true: false} color={color} onClick={handleClick} /> )
+        Object.values(Colors).map(color=> <Button disabled={buttonsDisabled} key={color} isActive={activeColor === color ? true: false}  color={color} onClick={handleClick} /> )
        }
-      <StartButton onClick={startGame}  />
+       </div>
+       {
+        !gameStarted && <StartButton onClick={startGame}  />
+       }
     </div>
   );
 }

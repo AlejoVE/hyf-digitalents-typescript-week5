@@ -4,6 +4,8 @@ import { Title } from './components/Title';
 import './styles/styles.css'
 import { StartButton } from './components/StartButton';
 import { timeout } from './helpers/helpers';
+import swal from 'sweetalert';
+
 
 function App() {
 
@@ -36,9 +38,7 @@ function App() {
 
    for (let i = 0; i < userAnswers.length; i++) {
     if(currentSequence[i] !== userAnswers[i]){
-      alert(`                    Game over\n
-                     Your Score: ${score}
-      `  )
+      swal("WRONG ANSWER!", `SCORE: ${score}`, "error");
       resetGame()
       return
      }
@@ -64,9 +64,9 @@ function App() {
  const displayColors = async (sequence: string[])=> {
     for (let i = 0; i < sequence.length; i++) {
       setActiveColor(sequence[i])
-      await timeout(500)
+      await timeout(300)
       setActiveColor('')
-      await timeout(500)
+      await timeout(300)
     }
     setButtonsDisabled(false)
   }

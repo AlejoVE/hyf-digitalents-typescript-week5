@@ -2,9 +2,9 @@ import React from 'react'
 
 export enum Colors {
 
-    GREEN = 'green',
-    RED= 'red',
-    BLUE = 'blue',
+    GREEN = '#08a045',
+    RED= '#d63230',
+    BLUE = '#40bcd8',
     PINK = 'hotpink'
 }
 

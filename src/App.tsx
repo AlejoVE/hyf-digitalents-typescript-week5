@@ -53,9 +53,12 @@ function App() {
 
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>)=> {
+  const handleClick =  async(e: React.MouseEvent<HTMLButtonElement>)=> {
     if(currentSequence.length < 1) return
     const color = (e.target as HTMLButtonElement).getAttribute('data-color')
+    setActiveColor(color as string)
+    await timeout(150)
+    setActiveColor('')
     const updateUserAnswers = [...userAnswers, (color as string)]
     setUserAnswers(updateUserAnswers)
     checkAnswers(updateUserAnswers)

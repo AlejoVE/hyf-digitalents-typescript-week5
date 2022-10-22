@@ -17,16 +17,16 @@ function App() {
   const [gameStarted, setGameStarted] = useState<boolean>(false)
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(true)
 
-  const startGame = (e: React.MouseEvent<HTMLButtonElement>)=> {
+  const startGame = (e: React.MouseEvent<HTMLButtonElement>): void=> {
     setGameStarted(true)
     startSequence()
   }
 
-  const startSequence = async () =>{
+  const startSequence = (): void =>{
     setButtonsDisabled(true)
     const randomIndex: number = Math.floor(Math.random() * colors.length);
-    const color = colors[randomIndex]
-    const updateSequence = [...currentSequence, color]
+    const color: string = colors[randomIndex]
+    const updateSequence: string[] = [...currentSequence, color]
 
     setCurrentSequence(updateSequence)
 
@@ -34,7 +34,7 @@ function App() {
 
   }
 
-  const checkAnswers = async(userAnswers: string[]) => {
+  const checkAnswers = async(userAnswers: string[]): Promise<void> => {
 
    for (let i = 0; i < userAnswers.length; i++) {
     if(currentSequence[i] !== userAnswers[i]){
@@ -53,19 +53,19 @@ function App() {
 
   }
 
-  const handleClick =  async(e: React.MouseEvent<HTMLButtonElement>)=> {
+  const handleClick =  async(e: React.MouseEvent<HTMLButtonElement>): Promise<void>=> {
     if(currentSequence.length < 1) return
     // Get the color of the  clicked button
-    const color = (e.target as HTMLButtonElement).getAttribute('data-color')
-    setActiveColor(color as string)
+    const color: string = (e.target as HTMLButtonElement).getAttribute('data-color') as string
+    setActiveColor(color)
     await timeout(150)
     setActiveColor('')
-    const updateUserAnswers = [...userAnswers, (color as string)]
+    const updateUserAnswers: string[] = [...userAnswers, color]
     setUserAnswers(updateUserAnswers)
     checkAnswers(updateUserAnswers)
   }
 
- const displayColors = async (sequence: string[])=> {
+ const displayColors = async (sequence: string[]): Promise<void>=> {
     for (let i = 0; i < sequence.length; i++) {
       setActiveColor(sequence[i])
       await timeout(300)
@@ -76,7 +76,7 @@ function App() {
   }
 
 
-  const resetGame = ()=>{
+  const resetGame = (): void=>{
     setButtonsDisabled(true)
     setActiveColor('')
     setCurrentSequence([])

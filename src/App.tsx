@@ -16,10 +16,8 @@ function App() {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(true)
 
   const startGame = (e: React.MouseEvent<HTMLButtonElement>)=> {
-    
     setGameStarted(true)
     startSequence()
-    // setButtonsDisabled(false)
   }
 
   const startSequence = async () =>{
@@ -31,7 +29,6 @@ function App() {
     setCurrentSequence(updateSequence)
 
     displayColors(updateSequence)
-
 
   }
 
@@ -76,6 +73,7 @@ function App() {
 
 
   const resetGame = ()=>{
+    setButtonsDisabled(true)
     setActiveColor('')
     setCurrentSequence([])
     setScore(0)

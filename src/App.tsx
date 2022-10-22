@@ -55,6 +55,7 @@ function App() {
 
   const handleClick =  async(e: React.MouseEvent<HTMLButtonElement>)=> {
     if(currentSequence.length < 1) return
+    // Get the color of the  clicked button
     const color = (e.target as HTMLButtonElement).getAttribute('data-color')
     setActiveColor(color as string)
     await timeout(150)
